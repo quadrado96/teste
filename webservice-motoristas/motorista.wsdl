@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<definitions name="MotoristaService"
+             targetNamespace="http://motoristaservice.com/"
+             xmlns:tns="http://motoristaservice.com/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+  <types>
+    <xsd:schema targetNamespace="http://motoristaservice.com/">
+      <xsd:element name="salvarMotorista">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="nome" type="xsd:string"/>
+            <xsd:element name="cpf" type="xsd:string"/>
+            <xsd:element name="cnh" type="xsd:string"/>
+            <xsd:element name="email" type="xsd:string"/>
+            <xsd:element name="celular" type="xsd:string"/>
+            <xsd:element name="cep" type="xsd:string"/>
+            <xsd:element name="rua" type="xsd:string"/>
+            <xsd:element name="bairro" type="xsd:string"/>
+            <xsd:element name="cidade" type="xsd:string"/>
+            <xsd:element name="estado" type="xsd:string"/>
+            <xsd:element name="placa" type="xsd:string"/>
+            <xsd:element name="marca" type="xsd:string"/>
+            <xsd:element name="modelo" type="xsd:string"/>
+            <xsd:element name="ano" type="xsd:int"/>
+            <xsd:element name="cor" type="xsd:string"/>
+            <xsd:element name="kmAtual" type="xsd:int"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+
+      <xsd:element name="salvarMotoristaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="resultado" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+
+  <message name="salvarMotoristaRequest">
+    <part name="parameters" element="tns:salvarMotorista"/>
+  </message>
+
+  <message name="salvarMotoristaResponse">
+    <part name="parameters" element="tns:salvarMotoristaResponse"/>
+  </message>
+
+  <portType name="MotoristaPort">
+    <operation name="salvarMotorista">
+      <input message="tns:salvarMotoristaRequest"/>
+      <output message="tns:salvarMotoristaResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="MotoristaBinding" type="tns:MotoristaPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="salvarMotorista">
+      <soap:operation soapAction="http://motoristaservice.com/salvarMotorista"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="MotoristaService">
+    <port name="MotoristaPort" binding="tns:MotoristaBinding">
+      <soap:address location="http://192.168.0.17:8000/wsdl"/>
+    </port>
+  </service>
+
+</definitions>
